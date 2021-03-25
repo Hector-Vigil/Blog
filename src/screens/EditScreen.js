@@ -1,13 +1,20 @@
 import React, {useContext} from 'react';
-import {View, Text, StyleSheet} from "react-native";
-import { Context} from "../context/BlogContext";
+import {StyleSheet} from "react-native";
+import {Context} from "../context/BlogContext";
+import BlogPostForm from "../components/BlogPostForm";
 
 
-const EditScreen = () => {
+const EditScreen = ({navigation, route}) => {
+    const {id} = route.params;
+    const {state, editBlogPost} = useContext(Context);
+    const blogPost = state.find((blogPost) => blogPost.id === id);
+
     return (
-        <View>
-            <Text>Edit screen</Text>
-        </View>
+        <BlogPostForm
+            initialValues={{title: blogPost.title, content: blogPost.content}}
+            onSubmit={(title,value)=>
+            editBlogPost(id,title,value,()=>navigation.pop())}
+        />
     );
 };
 

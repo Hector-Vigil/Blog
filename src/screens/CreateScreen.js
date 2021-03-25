@@ -1,14 +1,15 @@
 import React, {useContext} from 'react';
-import {View, Text, StyleSheet} from "react-native";
+import {StyleSheet, TouchableOpacity} from "react-native";
 import {Context} from "../context/BlogContext";
+import BlogPostForm from "../components/BlogPostForm";
+import {EvilIcons} from "@expo/vector-icons";
 
+const CreateScreen = ({navigation}) => {
+    const {addBlogPost} = useContext(Context);
 
-const CreateScreen = () => {
-    return (
-        <View>
-            <Text>Create screen</Text>
-        </View>
-    );
+    return <BlogPostForm onSubmit={(title, content) => {
+        addBlogPost(title, content, () => navigation.navigate('Index'));
+    }}/>
 };
 
 const styles = StyleSheet.create({});
